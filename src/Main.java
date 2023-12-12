@@ -8,10 +8,10 @@ public class Main {
 
     public static void main(String[] args) {
         // Carregar stocks a partir do arquivo
-        loadStocksFromFile("src/util/stockList.txt");
+        loadStocksFromFile("util/stockList.txt");
 
         // Carregar brokers a partir do arquivo
-        List<Broker> brokers = loadBrokersFromFile("src/util/brokersList.txt");
+        List<Broker> brokers = loadBrokersFromFile("util/brokersList.txt");
 
         // Criação e inicialização das threads para os brokers
         List<Thread> brokerThreads = new ArrayList<>();
