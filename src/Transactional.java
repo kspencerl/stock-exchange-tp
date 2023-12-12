@@ -7,12 +7,12 @@ import java.time.LocalDateTime;
 public class Transactional {
     private int quantity;
     private double price;
-    private LocalDateTime datetime;
+    private LocalDateTime dateTime;
 
     public Transactional (int quantity, double price){
         this.quantity = quantity;
         this.price = price;
-        this.datetime = LocalDateTime.now();
+        this.dateTime = LocalDateTime.now();
     }
 
     public int getQuantity(){

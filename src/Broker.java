@@ -4,9 +4,13 @@
 
 //!observer (receber notificações)
 //
-public class Broker {
+public class Broker implements Observer, Runnable {
 
     private String name;
+
+    public Broker(String name) {
+        this.name = name;
+    }
 
     public String getName() {
         return name;
@@ -16,12 +20,25 @@ public class Broker {
         this.name = name;
     }
 
-    public void buy(){}
+    public void buy(Stock stock, int quantity, double price) {
+        Order buyOrder = OrderFactory.createOrder(quantity, price, this);
 
-    public void sell(){}
+    }
 
-    public void getInfo(){}
+    public void sell(Stock stock, int quantity, double price) {
+        Order sellOrder = OrderFactory.createOrder(quantity, price, this);
 
-    //public void notify(){}
+    }
 
+    public void getInfo(Stock stock) { //solicitar informações sobre a ação
+    }
+
+    @Override
+    public void notify(Stock stock) { //lógica para receber notificações sobre atualizações no livro de ofertas ou transações
+        System.out.println("Broker " + name + " received update.");
+    }
+
+    @Override
+    public void run() { //simular a execução do broker em uma thread
+    }
 }
