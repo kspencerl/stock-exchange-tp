@@ -1,4 +1,4 @@
-//transação
+//* transactional - transação
 //representa transação realizada na bolsa
 //contém informação sobre a quantidade, valor e horário da transação
 

@@ -1,6 +1,6 @@
-//ordem 
-// representa ordem de compra ou de venda
-// contém informações de quantidade, valor e corretora
+//* order - ordem 
+//representa ordem de compra ou de venda
+//contém informações de quantidade, valor e corretora
 
 public class Order{
     private int quantity;
@@ -9,5 +9,5 @@ public class Order{
 
     private Broker broker;
 
-    
+
 }

@@ -1,4 +1,4 @@
-//bolsa de valores
+//* stock market - bolsa de valores
 // centraliza informações das ações
 //mapa de ações (stocks) + métodos para receber ordens + notificar atualizações + gerar transações 
 

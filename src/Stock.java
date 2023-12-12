@@ -1,6 +1,7 @@
-//ação
+//* stock - ação
 //representa uma ação na bolsa
-//contém informações como nome, código e um livro de ofertas (OfferBook) para essa ação específica.
+//contém informações como nome, código dessa ação específica
+//livro de ofertas (OfferBook) para essa ação específica.
 
 import java.util.List;
 
@@ -10,12 +11,12 @@ public class Stock {
 
     private String code;
 
-    private List<OfferBook> offerBook;
+    private List<Order> offerBook; //livro de ofertas (OfferBook) para essa ação específica.
 
     /// construtor ---- offerbook
 
 
-    public List<OfferBook> getOfferBook(){
+    public List<Order> getOfferBook(){
         return offerBook;
     }
 
