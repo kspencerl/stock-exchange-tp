@@ -17,18 +17,6 @@ public class Broker implements Observer, Runnable {
         this.name = name;
     }
 
-    public static void loadBrokersFromFile(String filePath) {
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                Broker broker = new Broker(line.trim());
-                StockMarket.getInstance().addObserver(broker); // Adiciona cada corretor como observador da bolsa
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     public String getName() {
         return name;
     }
@@ -38,14 +26,13 @@ public class Broker implements Observer, Runnable {
     }
 
     public void buy(Stock stock, int quantity, double price) {
-        Order buyOrder = OrderFactory.createOrder(quantity, price, this);
-        stock.addOrder(buyOrder);
+        stock.buy(this, quantity, price);
     }
 
     public void sell(Stock stock, int quantity, double price) {
-        Order sellOrder = OrderFactory.createOrder(quantity, price, this);
-        stock.addOrder(sellOrder);
+        stock.sell(this, quantity, price);
     }
+
 
     public void getInfo(Stock stock) { //solicitar informações sobre a ação
     }

@@ -4,6 +4,9 @@
 //livro de ofertas (OfferBook) para essa ação específica.
 
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,14 +16,20 @@ public class Stock implements Observable{
 
     private String name;
 
+    private String code;
+
+    private String description;
+
     private List<Order> offerBook; //livro de ofertas (OfferBook) para essa ação específica.
 
     private List<Transactional> transactions;
 
     private Set<Observer> observers;
 
-    public Stock(String name) {
+    public Stock(String name, String code, String description) {
         this.name = name;
+        this.code = code;
+        this.description = description;
         this.offerBook = new LinkedList<>();
         this.transactions = new LinkedList<>();
         this.observers = new HashSet<>();
@@ -34,7 +43,7 @@ public class Stock implements Observable{
         return offerBook;
     }
 
-    public void addOffer(Order order) {
+    public void addOrder(Order order) {
         offerBook.add(order);
         notifyObservers();
     }
@@ -42,6 +51,16 @@ public class Stock implements Observable{
     public void addTransaction(Transactional transaction) {
         transactions.add(transaction);
         notifyObservers();
+    }
+
+    public synchronized void buy(Broker broker, int quantity, double price) {
+        Order buyOrder = OrderFactory.createOrder(quantity, price, broker);
+        addOrder(buyOrder);
+    }
+
+    public synchronized void sell(Broker broker, int quantity, double price) {
+        Order sellOrder = OrderFactory.createOrder(quantity, price, broker);
+        addOrder(sellOrder);
     }
 
     @Override

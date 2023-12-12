@@ -5,13 +5,14 @@
 //!singleton (apenas uma única instância da bolsa de valores - centralização)
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class StockMarket implements Observable {
     //singleton
-    private static StockMarket instance;
+    private static StockMarket instance = new StockMarket();
 
-    private Map<String, Stock> stocks;//ações
+    private Map<String, Stock> stocks;
 
 
     private StockMarket(){
@@ -55,4 +56,6 @@ public class StockMarket implements Observable {
             stock.notifyObservers();
         }
     }
+
+   
 }
