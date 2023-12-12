@@ -1,3 +1,7 @@
+//transação
+//representa transação realizada na bolsa
+//contém informação sobre a quantidade, valor e horário da transação
+
 import java.time.LocalDateTime;
 
 public class Transactional {

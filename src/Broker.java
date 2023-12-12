@@ -1,3 +1,8 @@
+//corretora
+//observa bolsa de valores (recebe notificações) 
+//envia ordens de compra, venda e solicitação de informações
+
+//!observer (receber notificações)
 public class Broker {
 
     private String name;
