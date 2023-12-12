@@ -1,0 +1,24 @@
+Broker Name
+Alpha Securities,
+Beta Investments,
+Gamma Traders Inc.,
+Delta Capital Management,
+Omega Finance Group,
+Sigma Stock Solutions,
+Theta Trading Co.,
+Zeta Investment Advisors,
+Apex Securities,
+Nebula Brokers LLC,
+Quantum Investments,
+Stellar Trading Partners,
+Orion Financial Services,
+Nova Asset Management,
+Eclipse Capital Ventures,
+Pegasus Portfolio Advisors,
+Phoenix Securities,
+Titan Traders Ltd.,
+Atlas Investment Partners,
+Centaur Capital Holdings
+
+
+//lista de corretoras
