@@ -30,6 +30,10 @@ public class StockMarket implements Observable {
         return stocks.get(stockName);
     }
 
+    public void addStock(Stock stock) {
+        stocks.put(stock.getName(), stock);
+    }
+
     public void generateTransaction(Stock stock, int quantity, double price) {
         Transactional transaction = TransactionalFactory.createTransaction(quantity, price);
         stock.addTransaction(transaction);
