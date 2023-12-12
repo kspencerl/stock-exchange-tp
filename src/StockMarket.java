@@ -16,7 +16,6 @@ public class StockMarket implements Observable {
 
     private StockMarket(){
         this.stocks = new HashMap<>();
-
     }
 
     public static synchronized StockMarket getInstance(){
@@ -26,10 +25,34 @@ public class StockMarket implements Observable {
         return instance;
     }
 
-    public Stock getStock(String stockCode) {
-        return stocks.get(stockCode);
+    public Stock getStock(String stockName) {
+        return stocks.get(stockName);
     }
-    
 
-    //todo: criar métodos para receber ordens, notificar atualizações e gerar transações
+    public void generateTransaction(Stock stock, int quantity, double price) {
+        Transactional transaction = TransactionalFactory.createTransaction(quantity, price);
+        stock.addTransaction(transaction);
+        notifyObservers();
+    }
+
+    @Override
+    public void addObserver(Observer observer) {
+        for (Stock stock : stocks.values()) {
+            stock.addObserver(observer);
+        }
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        for (Stock stock : stocks.values()) {
+            stock.removeObserver(observer);
+        }
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Stock stock : stocks.values()) {
+            stock.notifyObservers();
+        }
+    }
 }
