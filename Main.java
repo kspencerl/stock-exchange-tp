@@ -11,7 +11,7 @@ public class Main {
         loadStocksFromFile("src/util/stockList.txt");
 
         // Carregar brokers a partir do arquivo
-        loadBrokersFromFile("src/util/brokersList.txt");
+        List<Broker> brokers = loadBrokersFromFile("src/util/brokersList.txt");
 
         // Criação e inicialização das threads para os brokers
         List<Thread> brokerThreads = new ArrayList<>();
@@ -54,15 +54,18 @@ public class Main {
         }
     }
 
-    public static void loadBrokersFromFile(String filePath) {
+    public static List<Broker> loadBrokersFromFile(String filePath) {
+        List<Broker> brokers = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = br.readLine()) != null) {
                 Broker broker = new Broker(line.trim());
+                brokers.add(broker);
                 StockMarket.getInstance().addObserver(broker);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return brokers;
     }
 }
