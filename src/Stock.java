@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Stock implements Observable {
     private String name;
@@ -56,52 +57,65 @@ public class Stock implements Observable {
     }
 
     private void processOrder(Order newOrder) {
+        boolean isOrderMatched = false;
+
+        // Check if the new order matches any existing order in the offer book
+        for (Order existingOrder : offerBook) {
+            if (newOrder.isBuyOrder() == existingOrder.isBuyOrder() &&
+                    newOrder.getPrice() == existingOrder.getPrice()) {
+                // If a match is found, sum the quantities
+                existingOrder.setQuantity(existingOrder.getQuantity() + newOrder.getQuantity());
+                isOrderMatched = true;
+                break; // Since we've found the match, we don't need to check further
+            }
+        }
+
+        if (!isOrderMatched) {
+            // If no matching order is found, add the new order to the offer book
+            offerBook.add(newOrder);
+        }
+
+        // After updating the offer book, match orders to execute transactions
+        matchOrders();
+
+        // Sort the offer book: buy orders descending by price, sell orders ascending by price
+        sortOfferBook();
+
+        notifyObservers();
+    }
+
+    private void matchOrders() {
         List<Order> matchedOrders = new LinkedList<>();
-        Iterator<Order> iterator = offerBook.iterator();
+        List<Order> toRemove = new LinkedList<>();
 
-        while (iterator.hasNext()) {
-            Order existingOrder = iterator.next();
-            // Check if the existing order is a match: buy meets sell at an acceptable price
-            if (newOrder.isBuyOrder() != existingOrder.isBuyOrder() &&
-                    ((newOrder.isBuyOrder() && newOrder.getPrice() >= existingOrder.getPrice()) ||
-                            (!newOrder.isBuyOrder() && newOrder.getPrice() <= existingOrder.getPrice()))) {
+        for (Order buyOrder : offerBook.stream().filter(Order::isBuyOrder).collect(Collectors.toList())) {
+            for (Order sellOrder : offerBook.stream().filter(o -> !o.isBuyOrder()).collect(Collectors.toList())) {
+                if (buyOrder.getPrice() >= sellOrder.getPrice()) {
+                    int matchedQuantity = Math.min(buyOrder.getQuantity(), sellOrder.getQuantity());
+                    double transactionPrice = sellOrder.getPrice();
+                    transactions.add(new Transactional(matchedQuantity, transactionPrice));
 
-                int matchedQuantity = Math.min(newOrder.getQuantity(), existingOrder.getQuantity());
-                double transactionPrice = existingOrder.getPrice(); // Transaction happens at the listed price
-                transactions.add(new Transactional(matchedQuantity, transactionPrice));
+                    buyOrder.setQuantity(buyOrder.getQuantity() - matchedQuantity);
+                    sellOrder.setQuantity(sellOrder.getQuantity() - matchedQuantity);
 
-                newOrder.setQuantity(newOrder.getQuantity() - matchedQuantity);
-                existingOrder.setQuantity(existingOrder.getQuantity() - matchedQuantity);
-
-                if (existingOrder.getQuantity() == 0) {
-                    matchedOrders.add(existingOrder);
-                }
-
-                if (newOrder.getQuantity() == 0) {
-                    break;
+                    if (buyOrder.getQuantity() == 0) matchedOrders.add(buyOrder);
+                    if (sellOrder.getQuantity() == 0) matchedOrders.add(sellOrder);
                 }
             }
         }
 
-        // Remove all matched orders from offer book
+        // Remove matched orders from the offer book
         offerBook.removeAll(matchedOrders);
+    }
 
-        // If there's remaining quantity in the new order, add it to the offer book
-        if (newOrder.getQuantity() > 0) {
-            offerBook.add(newOrder);
-        }
-
-        // Sort the offer book: buy orders descending by price, sell orders ascending by price
+    private void sortOfferBook() {
         offerBook.sort((o1, o2) -> {
             if (o1.isBuyOrder() == o2.isBuyOrder()) {
                 return o1.isBuyOrder() ? Double.compare(o2.getPrice(), o1.getPrice()) : Double.compare(o1.getPrice(), o2.getPrice());
             }
             return 0; // Don't sort buy orders with respect to sell orders
         });
-
-        notifyObservers();
     }
-
     @Override
     public void addObserver(Observer observer) {
         observers.add(observer);
