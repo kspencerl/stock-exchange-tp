@@ -1,7 +1,7 @@
-//* stock - ação
-//representa uma ação na bolsa
-//contém informações como nome, código dessa ação específica
-//livro de ofertas (OfferBook) para essa ação específica.
+/* CLASSE STOCK
+representa uma ação na bolsa de valores
+contém informações como nome, código dessa ação específica
+livro de ofertas (OfferBook) para ação específica.*/
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -105,16 +105,31 @@ public class Stock implements Observable {
             return 0;
         });
     }
+
+    
+    /**
+     * Adiciona um observador para receber notificações sobre atualizações na ação.
+     *
+     * @param observer O observador a ser adicionado.
+     */
     @Override
     public void addObserver(Observer observer) {
         observers.add(observer);
     }
 
+    /**
+     * Remove um observador previamente adicionado.
+     *
+     * @param observer O observador a ser removido.
+     */
     @Override
     public void removeObserver(Observer observer) {
         observers.remove(observer);
     }
 
+    /**
+     * Notifica todos os observadores registrados sobre uma atualização na ação.
+     */
     @Override
     public void notifyObservers() {
         for (Observer observer : observers) {

@@ -1,18 +1,15 @@
-//*broker - corretora
-//observa bolsa de valores (recebe notificações) 
-//envia ordens de compra, venda e solicitação de informações
-
-//!observer (receber notificações)
-//
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+/*CLASSE BROKER - representa uma corretora
+ Observa a bolsa de valores (recebe notificações)
+ Envia ordens de compra, venda e solicitação de informações*/
 
 public class Broker implements Observer, Runnable {
-
+    //nome da corretora
     private String name;
 
+    /**
+     * Construtor para incializar um broker
+     * @param name
+     */
     public Broker(String name) {
         this.name = name;
     }
@@ -25,24 +22,44 @@ public class Broker implements Observer, Runnable {
         this.name = name;
     }
 
+    /**
+     * Envia uma ordem de compra para a ação especificada com a quantidade e preço fornecidos.
+     *
+     * @param stock    A ação para a qual a ordem de compra está sendo enviada.
+     * @param quantidade A quantidade de ações a serem compradas.
+     * @param preco O preço pelo qual as ações serão compradas.
+     */
     public void buy(Stock stock, int quantity, double price) {
         stock.buy(this, quantity, price);
     }
 
+    /**
+     * Envia uma ordem de venda para a ação especificada com a quantidade e preço fornecidos.
+     *
+     * @param stock    A ação para a qual a ordem de venda está sendo enviada.
+     * @param quantidade A quantidade de ações a serem vendidas.
+     * @param preco O preço pelo qual as ações serão vendidas.
+     */
     public void sell(Stock stock, int quantity, double price) {
         stock.sell(this, quantity, price);
     }
 
-
-    public void getInfo(Stock stock) { //solicitar informações sobre a ação
+    /**
+     * Solicita informações sobre a ação especificada.
+     *
+     * @param stock A ação para a qual as informações estão sendo solicitadas.
+     */
+    public void getInfo(Stock stock) { //todo: solicitar informações sobre a ação
     }
 
+    //todo: documentação e lógica para receber notificações sobre atualizações no livro de ofertas ou transações
     @Override
-    public void update(Stock stock) { //lógica para receber notificações sobre atualizações no livro de ofertas ou transações
+    public void update(Stock stock) {
         System.out.println("Broker " + name + " received update " + stock.getName());
     }
 
+    //todo: documentação e lógica para simular a execução da corretora em uma thread
     @Override
-    public void run() { //simular a execução do broker em uma thread
+    public void run() { 
     }
 }

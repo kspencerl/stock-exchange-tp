@@ -1,9 +1,20 @@
+/* CLASSE ORDER
+Representa ordem de compra ou de venda
+Contém informações de quantidade, valor e corretora*/
 public class Order {
     private int quantity;
     private double price;
     private Broker broker;
-    private boolean isBuyOrder; // This field indicates if it's a buy order or not
+    private boolean isBuyOrder;
 
+    /**
+     * Construtor de uma nova ordem com a quantidade, preço, corretora e tipo de ordem.
+     *
+     * @param quantidade A quantidade de ações na ordem.
+     * @param preco O preço pelo qual as ações serão compradas ou vendidas.
+     * @param corretora A corretora responsável pela ordem.
+     * @param isOrdemCompra Indica se é uma ordem de compra (true) ou venda (false).
+     */
     public Order(int quantity, double price, Broker broker, boolean isBuyOrder) {
         this.quantity = quantity;
         this.price = price;
@@ -31,12 +42,20 @@ public class Order {
         this.broker = broker;
     }
 
+    /**
+     * Define se é uma ordem de compra (true) ou venda (false).
+     *
+     * @param isOrdemCompra Indica se é uma ordem de compra (true) ou venda (false).
+     */
     public void setBuyOrder(boolean buyOrder) {
         isBuyOrder = buyOrder;
     }
-// Getters and setters for the class fields
-    // ...
 
+    /**
+     * Verifica se é uma ordem de compra.
+     *
+     * @return True se for uma ordem de compra, false se for uma ordem de venda.
+     */
     public boolean isBuyOrder() {
         return isBuyOrder;
     }
@@ -44,6 +63,4 @@ public class Order {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
-    // Additional getters and setters if necessary
 }

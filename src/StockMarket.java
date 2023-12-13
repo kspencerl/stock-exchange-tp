@@ -1,8 +1,6 @@
-//* stock market - bolsa de valores
-// centraliza informações das ações
-//mapa de ações (stocks) + métodos para receber ordens + notificar atualizações + gerar transações 
-
-//!singleton (apenas uma única instância da bolsa de valores - centralização)
+/* CLASSE STOCK MARKET
+centraliza informações das ações (singleton)
+mapa de ações (stocks) + métodos para receber ordens + notificar atualizações + gerar transações */
 
 import java.util.HashMap;
 import java.util.List;
@@ -40,6 +38,11 @@ public class StockMarket implements Observable {
         notifyObservers();
     }
 
+    /**
+     * Adiciona um observador para receber notificações sobre atualizações em todas as ações do mercado.
+     *
+     * @param observer O observador a ser adicionado.
+     */
     @Override
     public void addObserver(Observer observer) {
         for (Stock stock : stocks.values()) {
@@ -47,6 +50,11 @@ public class StockMarket implements Observable {
         }
     }
 
+    /**
+     * Remove um observador previamente adicionado de todas as ações do mercado.
+     *
+     * @param observer O observador a ser removido.
+     */
     @Override
     public void removeObserver(Observer observer) {
         for (Stock stock : stocks.values()) {
@@ -54,12 +62,13 @@ public class StockMarket implements Observable {
         }
     }
 
+    /**
+     * Notifica todos os observadores registrados sobre uma atualização em todas as ações do mercado.
+     */
     @Override
     public void notifyObservers() {
         for (Stock stock : stocks.values()) {
             stock.notifyObservers();
         }
     }
-
-   
 }

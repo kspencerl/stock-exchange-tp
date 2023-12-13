@@ -1,6 +1,6 @@
-//* transactional - transação
-//representa transação realizada na bolsa
-//contém informação sobre a quantidade, valor e horário da transação
+/* CLASSE TRANSACTIONAL
+representa transação realizada na bolsa
+contém informação sobre a quantidade, valor e horário da transação*/
 
 import java.time.LocalDateTime;
 
@@ -27,6 +27,11 @@ public class Transactional {
         return this.dateTime;
     }
 
+    /**
+     * Obtém o valor total da transação (quantidade x preço).
+     *
+     * @return O valor total da transação.
+     */
     public double getTotal(){
         return this.quantity * this.price;
     }
