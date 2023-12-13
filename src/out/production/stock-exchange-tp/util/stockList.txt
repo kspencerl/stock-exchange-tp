@@ -1,0 +1,15 @@
+AMBEV S/A ON,ABEV3,Fabricação e Distribuição de Cervejas Refrigerantes e Bebidas Não Carbonatadas e Não Alcoólicas
+PETROBRAS PN,PETR4,Petróleo Gás e Energia
+VALE PNA,VALE5,Mineração
+ITAUUNIBANCO PN,ITUB4,A Sociedade Tem por Objeto A Atividade Bancária
+BRADESCO PN,BBDC4,Prática de Operações Bancárias em Geral Inclusive Câmbio
+BRASIL ON,BBAS3,Banco Múltiplo
+CIELO ON,CIEL3,Empresa Prestadora de Serviços de Adquirência e Meios de Pagamento
+PETROBRAS ON,PETR3,Petróleo Gás e Energia
+HYPERMARCAS ON,HYPE3,Produção e Venda de Bens de Consumo e Medicamentos
+VALE ON,VALE3,Mineração
+BBSEGURIDADE ON,BBSE3,Participação no Capital Social de Outras Sociedades que Tenham por Atividade Operações de Seguros Resseguros Previdências Complementar ou Capitalização
+CETIP ON,CTIP3,Sociedade Administradora de Mercados de Balcão Organizados
+GERDAU PN,GGBR4,Participação e Administração
+FIBRIA ON,FIBR3,
+RAIADROGASIL ON,RADL3,Comércio de Produtos Farmacêuticos Perfumarias e Afins

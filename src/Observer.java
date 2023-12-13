@@ -1,3 +1,3 @@
 public interface Observer {
-    void notify(Stock stock);
+    void update(Stock stock);
 }

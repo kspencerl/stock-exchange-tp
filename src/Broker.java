@@ -38,7 +38,7 @@ public class Broker implements Observer, Runnable {
     }
 
     @Override
-    public void notify(Stock stock) { //lógica para receber notificações sobre atualizações no livro de ofertas ou transações
+    public void update(Stock stock) { //lógica para receber notificações sobre atualizações no livro de ofertas ou transações
         System.out.println("Broker " + name + " received update " + stock.getName());
     }
 
