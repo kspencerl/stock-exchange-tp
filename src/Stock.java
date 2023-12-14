@@ -14,6 +14,14 @@ public class Stock implements Observable {
     private List<Transactional> transactions;
     private Set<Observer> observers;
 
+     /**
+     * Construtor para a instanciação de uma ação
+     *
+     * @param name nome da ação
+     * @param code código da ação
+     * @param description descrição geral da ação
+     * É instanciado uma lista de transações do tipo LinkedList e uma lista de observadores do tipo HashSet
+     */
     public Stock(String name, String code, String description) {
         this.name = name;
         this.code = code;
@@ -31,25 +39,33 @@ public class Stock implements Observable {
         return transactions;
     }
 
-    //Adiciona transação e notifica observadores
+    /*
+    Adiciona transação e notifica observadores
+    */
     public void addTransaction(Transactional transaction) {
         transactions.add(transaction);
         notifyObservers();
     }
 
-    //Cria ordem de pedido de compra
+    /*
+    Cria ordem de pedido de compra
+    */
     public synchronized void buy(Broker broker, int quantity, double price) {
         Order buyOrder = OrderFactory.createOrder(quantity, price, broker, true);
         processOrder(buyOrder);
     }
 
-    //Cria ordem de pedido de venda
+    /*
+    Cria ordem de pedido de venda
+    */
     public synchronized void sell(Broker broker, int quantity, double price) {
         Order sellOrder = OrderFactory.createOrder(quantity, price, broker, false);
         processOrder(sellOrder);
     }
 
-    //Realiza processamento dos pedidos de ordem
+    /*
+    Realiza processamento dos pedidos de ordem
+    */
     private void processOrder(Order newOrder) {
         boolean isOrderMatched = false;
 
@@ -78,6 +94,9 @@ public class Stock implements Observable {
         notifyObservers();
     }
 
+    /*
+    Executa transações
+    */
     private void matchOrders() {
         List<Order> matchedOrders = new LinkedList<>();
 
