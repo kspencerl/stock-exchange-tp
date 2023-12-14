@@ -7,16 +7,17 @@ import java.util.List;
 import java.util.Map;
 
 public class StockMarket implements Observable {
-    //singleton
+    //uso do singleton
     private static StockMarket instance = new StockMarket();
 
     private Map<String, Stock> stocks;
 
-
+    //Construtor privado
     private StockMarket(){
         this.stocks = new HashMap<>();
     }
 
+    //Garante instanciação única de um Stock Market
     public static synchronized StockMarket getInstance(){
         if(instance == null){
             instance = new StockMarket();
@@ -28,10 +29,16 @@ public class StockMarket implements Observable {
         return stocks.get(stockName);
     }
 
+    /*
+    Adiciona ação
+    */
     public void addStock(Stock stock) {
         stocks.put(stock.getName(), stock);
     }
 
+    /*
+    Gera transação e notifica observadores
+    */
     public void generateTransaction(Stock stock, int quantity, double price) {
         Transactional transaction = TransactionalFactory.createTransaction(quantity, price);
         stock.addTransaction(transaction);
