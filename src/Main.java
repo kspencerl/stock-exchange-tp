@@ -4,68 +4,49 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
 
     public static void main(String[] args) {
-        // Carregar stocks a partir do arquivo
-        loadStocksFromFile("util/stockList.txt");
+        // Instancia o mercado de ações
+        StockMarket B3 = StockMarket.getInstance();
 
-        // Carregar brokers a partir do arquivo
-        List<Broker> brokers = loadBrokersFromFile("util/brokersList.txt");
+        // Cria ação de "Shulambs"
+        Stock SHUL4 = new Stock("Shulambs", "SHUL4", "Uma empresa valiosa");
 
-        // Criação e inicialização das threads para os brokers
-        List<Thread> brokerThreads = new ArrayList<>();
-        for (Broker broker : brokers) {
-            Thread brokerThread = new Thread(broker);
-            brokerThreads.add(brokerThread);
-            brokerThread.start();
+        // Adiciona a ação ao mercado de ações
+        B3.addStock(SHUL4);
+
+        // Cria dois corretores, Modal Mais e XP
+        Broker modalMais = new Broker("Modal Mais");
+        Broker xp = new Broker("XP");
+
+        // Adiciona os corretores como observadores para receberem atualizações sobre as ações
+        B3.addObserver(modalMais);
+        B3.addObserver(xp);
+
+        // Modal Mais coloca uma ordem de venda de 150 ações da SHUL4 a $8.00 cada
+        modalMais.sell(SHUL4, 150, 8.0);
+
+        // XP coloca uma ordem de compra de 200 ações da SHUL4 a $7.80 cada
+        xp.buy(SHUL4, 200, 7.8);
+        // Modal Mais coloca uma ordem de compra de 200 ações da SHUL4 a $9.00 cada
+        modalMais.buy(SHUL4, 200, 9.0);
+        // Modal Mais coloca uma ordem de compra de 300 ações da SHUL4 a $10.50 cada
+        modalMais.buy(SHUL4, 300, 10.5);
+
+        // Modal Mais coloca outra ordem de venda de 100 ações da SHUL4 a $9.00 cada
+        modalMais.sell(SHUL4, 100, 9.0);
+        // XP coloca uma ordem de venda de 250 ações da SHUL4 a $10.00 cada
+        xp.sell(SHUL4,250, 10.0);
+
+        // Imprime todas as transações que foram realizadas após o processamento das ordens
+        for (Transactional transaction : SHUL4.getTransactions()) {
+            System.out.println("Transaction: " + transaction.getQuantity() + " shares at $" + transaction.getPrice());
         }
-
-        // Aguarde a conclusão das threads dos brokers
-        for (Thread brokerThread : brokerThreads) {
-            try {
-                brokerThread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public static Stock createStock(String stockInfo) {
-        String[] parts = stockInfo.split(",");
-        String name = parts[0].trim();
-        String code = parts[1].trim();
-        String description = parts.length > 2 ? parts[2].trim() : "";
-
-        Stock stock = new Stock(name, code, description);
-
-        return stock;
-    }
-
-    public static void loadStocksFromFile(String filePath) {
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                Stock stock = createStock(line.trim());
-                StockMarket.getInstance().addStock(stock);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static List<Broker> loadBrokersFromFile(String filePath) {
-        List<Broker> brokers = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                Broker broker = new Broker(line.trim());
-                brokers.add(broker);
-                StockMarket.getInstance().addObserver(broker);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return brokers;
     }
 }
+
+
