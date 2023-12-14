@@ -45,11 +45,11 @@ public class Main {
 
         // Imprime todas as transações que foram realizadas após o processamento das ordens
         for (Transactional transaction : SHUL4.getTransactions()) {
-            System.out.println("\nTransação: " + transaction.getQuantity() + " ações a R$" + transaction.getPrice());
+            System.out.println("Transação: " + transaction.getQuantity() + " ações a R$" + transaction.getPrice());
         }
 
         // Imprime todas as transações feitas em data específica
-        SHUL4.getInfo("13/12/2023 21:00");
+        SHUL4.getInfo("dd/MM/yyyy HH:mm"); // popule com a data desejada
     }
 }
 
