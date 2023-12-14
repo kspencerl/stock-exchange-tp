@@ -42,10 +42,14 @@ public class Main {
         // XP coloca uma ordem de venda de 250 ações da SHUL4 a R$10.00 cada
         xp.sell(SHUL4,250, 10.0);
 
+
         // Imprime todas as transações que foram realizadas após o processamento das ordens
         for (Transactional transaction : SHUL4.getTransactions()) {
-            System.out.println("Transaction: " + transaction.getQuantity() + " shares at $" + transaction.getPrice());
+            System.out.println("\nTransação: " + transaction.getQuantity() + " ações a R$" + transaction.getPrice());
         }
+
+        // Imprime todas as transações feitas em data específica
+        SHUL4.getInfo("13/12/2023 21:00");
     }
 }
 

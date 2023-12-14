@@ -3,6 +3,8 @@ representa uma ação na bolsa de valores
 contém informações como nome, código dessa ação específica
 livro de ofertas (OfferBook) para ação específica.*/
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -129,7 +131,6 @@ public class Stock implements Observable {
         });
     }
 
-    
     /**
      * Adiciona um observador para receber notificações sobre atualizações na ação.
      *
@@ -157,6 +158,28 @@ public class Stock implements Observable {
     public void notifyObservers() {
         for (Observer observer : observers) {
             observer.update(this);
+        }
+    }
+    public void getInfo(String dateTimeStr) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        LocalDateTime dateTime = LocalDateTime.parse(dateTimeStr, formatter);
+
+        // Supondo que transactions é uma lista de todas as transações que já ocorreram
+        List<Transactional> transactionsOnDate = transactions.stream()
+                // Filtra as transações pela data
+                .filter(t -> t.getDateTime().toLocalDate().equals(dateTime.toLocalDate()))
+                .collect(Collectors.toList());
+
+        // Verifica se há transações e imprime os detalhes
+        if (transactionsOnDate.isEmpty()) {
+            System.out.println("\nNão houve transações para a ação na data \n " + dateTimeStr);
+        } else {
+            System.out.println("\nTransações para a ação na data " + dateTimeStr + ":");
+            for (Transactional transaction : transactionsOnDate) {
+                System.out.println("Quantidade: " + transaction.getQuantity() +
+                        ", Preço: $" + transaction.getPrice() +
+                        ", Data e Hora: " + transaction.getDateTime().format(formatter));
+            }System.out.println("\n");
         }
     }
 }
