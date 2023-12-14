@@ -1,0 +1,2 @@
+Para o sistema de bolsa de valores, criamos classes para Ações, Corretoras, Bolsa de Valores, Ordem (compa ou venda).
+Uilizamos o padrão singleton para instanciar uma única bolsa de valor e centralizar informações, implementarmos as interfaces Observer e Observable para observar múltiplas ações na bolsa e receber atualizações sobre as ações, além de implementar o factory para a criação de objetos do tipo Transactional e do tipo Order.
