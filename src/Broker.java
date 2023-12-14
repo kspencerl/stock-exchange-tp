@@ -52,6 +52,7 @@ public class Broker implements Observer, Runnable {
     public void getInfo(Stock stock) { //todo: solicitar informações sobre a ação
     }
 
+    /*Recebe atualizações de determinada ação*/
     @Override
     public void update(Stock stock) {
         System.out.println("Broker " + name + " received update " + stock.getName());

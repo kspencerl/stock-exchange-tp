@@ -9,6 +9,7 @@ public class Transactional {
     private double price;
     private LocalDateTime dateTime;
 
+    /*Construtor para a classe Transactional que armazena a quantidade, preço e hora atual para determinada tranmsação*/
     public Transactional (int quantity, double price){
         this.quantity = quantity;
         this.price = price;
