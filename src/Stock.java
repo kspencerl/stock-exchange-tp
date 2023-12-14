@@ -31,21 +31,25 @@ public class Stock implements Observable {
         return transactions;
     }
 
+    //Adiciona transação e notifica observadores
     public void addTransaction(Transactional transaction) {
         transactions.add(transaction);
         notifyObservers();
     }
 
+    //Cria ordem de pedido de compra
     public synchronized void buy(Broker broker, int quantity, double price) {
         Order buyOrder = OrderFactory.createOrder(quantity, price, broker, true);
         processOrder(buyOrder);
     }
 
+    //Cria ordem de pedido de venda
     public synchronized void sell(Broker broker, int quantity, double price) {
         Order sellOrder = OrderFactory.createOrder(quantity, price, broker, false);
         processOrder(sellOrder);
     }
 
+    //Realiza processamento dos pedidos de ordem
     private void processOrder(Order newOrder) {
         boolean isOrderMatched = false;
 
