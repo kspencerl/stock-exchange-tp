@@ -27,19 +27,19 @@ public class Main {
         B3.addObserver(modalMais);
         B3.addObserver(xp);
 
-        // Modal Mais coloca uma ordem de venda de 150 ações da SHUL4 a $8.00 cada
+        // Modal Mais coloca uma ordem de venda de 150 ações da SHUL4 a R$8.00 cada
         modalMais.sell(SHUL4, 150, 8.0);
 
-        // XP coloca uma ordem de compra de 200 ações da SHUL4 a $7.80 cada
+        // XP coloca uma ordem de compra de 200 ações da SHUL4 a R$7.80 cada
         xp.buy(SHUL4, 200, 7.8);
-        // Modal Mais coloca uma ordem de compra de 200 ações da SHUL4 a $9.00 cada
+        // Modal Mais coloca uma ordem de compra de 200 ações da SHUL4 a R$9.00 cada
         modalMais.buy(SHUL4, 200, 9.0);
-        // Modal Mais coloca uma ordem de compra de 300 ações da SHUL4 a $10.50 cada
+        // Modal Mais coloca uma ordem de compra de 300 ações da SHUL4 a R$10.50 cada
         modalMais.buy(SHUL4, 300, 10.5);
 
-        // Modal Mais coloca outra ordem de venda de 100 ações da SHUL4 a $9.00 cada
+        // Modal Mais coloca outra ordem de venda de 100 ações da SHUL4 a R$9.00 cada
         modalMais.sell(SHUL4, 100, 9.0);
-        // XP coloca uma ordem de venda de 250 ações da SHUL4 a $10.00 cada
+        // XP coloca uma ordem de venda de 250 ações da SHUL4 a R$10.00 cada
         xp.sell(SHUL4,250, 10.0);
 
         // Imprime todas as transações que foram realizadas após o processamento das ordens
